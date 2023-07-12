@@ -9,6 +9,8 @@ import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.TranslateOptions;
 import com.google.cloud.translate.Translation;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -16,7 +18,7 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) {
         // 이미지 파일 경로
-        String imagePath = "C:\\OCR_For_Java\\images\\alphabet.jpg";
+        String imagePath = "C:\\JAVA_OCR\\images\\english_sentence4.png";
 
         // Tesseract OCR 인스턴스 생성
         ITesseract tesseract = new Tesseract();
@@ -30,7 +32,6 @@ public class Main {
             // 업로드 시 빼고 업로드 요망 - String jsonKeyFilePath 변수명은 쓰되, "" 안에 있는 글자는 명시하지 말 것.
             // 이 주석 바로 밑에 작성(변수명: String jsonKeyFilePath)
 
-
             // JSON 키 파일을 사용하여 인증 정보 로드
             GoogleCredentials credentials = GoogleCredentials.fromStream(new FileInputStream(jsonKeyFilePath));
 
@@ -42,11 +43,14 @@ public class Main {
             String targetLanguage = "ko"; // 번역할 언어 (예: 한국어)
             Translation translation = translate.translate(extractedText, Translate.TranslateOption.sourceLanguage(sourceLanguage), Translate.TranslateOption.targetLanguage(targetLanguage));
 
+            // 디코딩된 텍스트
+            String decodedText = StringEscapeUtils.unescapeHtml4(translation.getTranslatedText());
+
             // 추출된 텍스트 출력
             System.out.println("Extracted Text: " + extractedText);
 
-            // 번역 결과 출력
-            System.out.println("Translated Text: " + translation.getTranslatedText());
+            // 디코딩된 번역 결과 출력
+            System.out.println("Translated Text: " + decodedText);
         } catch (TesseractException | IOException e) {
             e.printStackTrace();
         }
