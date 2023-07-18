@@ -18,7 +18,7 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) {
         // 이미지 파일 경로
-        String imagePath = "C:\\JAVA_OCR\\images\\japanese_sentence2.png";
+        String imagePath = "C:\\JAVA_OCR\\images\\english_sentence5.png";
 
         // Tesseract OCR 인스턴스 생성
         ITesseract tesseract = new Tesseract();
@@ -38,7 +38,7 @@ public class Main {
             // Google Translation API JSON 키 파일 경로
             // 업로드 시 빼고 업로드 요망 - String jsonKeyFilePath 변수명은 쓰되, "" 안에 있는 글자는 명시하지 말 것.
             // 이 주석 바로 밑에 작성(변수명: String jsonKeyFilePath)
-            String jsonKeyFilePath = "C:\\translation_api_key\\spherical-entry-391823-2f5e9256772c.json";
+
 
             // JSON 키 파일을 사용하여 인증 정보 로드
             GoogleCredentials credentials = GoogleCredentials.fromStream(new FileInputStream(jsonKeyFilePath));
